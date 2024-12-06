@@ -155,14 +155,13 @@ contract OpinionPool is OwnableUpgradeable {
   function getAllOptionQuotes(bool _isBuy)
     public
     view
-    returns (uint256[][] memory)
+    returns (Option[] memory)
   {
-    uint256[][] memory quotes = new uint256[][](totalOptions);
+    Option[] memory quotes = new Option[](totalOptions);
     for (uint256 i = 0; i < totalOptions; i++) {
       // array where first element is name of option and second is price of option
-      quotes[i] = new uint256[](2);
-      quotes[i][0] = i; // Assuming the name of the option is represented by its index
-      quotes[i][1] = _quotePrice(i, 1, _isBuy);
+      quotes[i] = options[i];
+      quotes[i].shares = _quotePrice(i, 1, _isBuy);
     }
     return quotes;
   }

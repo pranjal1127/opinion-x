@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { formatEther } from "viem";
 import { useReadContract } from "wagmi";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
 
@@ -8,25 +9,39 @@ const OpinionCard = ({ id }: { id: string }) => {
     status,
     error,
   } = useReadContract({
-    address: "0x8aDb7Ca8ba24a1fDCea74fED0a32F158d6d82Ad7", // params
+    address: id, // params
     abi: poolABI,
     functionName: "name",
     args: [],
   });
 
-  const { data: options } = useReadContract({
-    address: "0x8aDb7Ca8ba24a1fDCea74fED0a32F158d6d82Ad7", // params
+  const {
+    data: options,
+    status: optionStatus,
+    error: optionError,
+  } = useReadContract({
+    address: id, // params
     abi: poolABI,
     functionName: "getAllOptionQuotes",
     args: [true],
   });
 
+  useEffect(() => {
+    console.log(options, optionStatus, optionError);
+  }, [options, optionStatus, optionError]);
+
   return (
-    <div>
+    <div className="mx-auto my-auto">
       <h1>Opinion Details</h1>
       <p>Opinion Address: {id}</p>
       <p>Name: {name}</p>
-      <p>Options: {options}</p>
+      <p>Options: </p>
+      {options?.map((ele, index) => (
+        <p key={index}>
+          {ele.name} - $ {formatEther(ele?.shares)}
+        </p>
+      ))}
+      {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
     </div>
   );
 };

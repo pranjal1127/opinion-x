@@ -16,7 +16,7 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
 const externalContracts = {
   [chains.sepolia.id]: {
     POOL_CONTRACT: {
-      address: "0x8aDb7Ca8ba24a1fDCea74fED0a32F158d6d82Ad7",
+      address: "0x04Cf4135B65e6B866F3eF9C6A2CD526779720EFA",
       abi: poolABI,
     },
   },

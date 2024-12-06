@@ -27,7 +27,17 @@ export const poolABI = [
     type: "function",
     name: "getAllOptionQuotes",
     inputs: [{ name: "_isBuy", type: "bool", internalType: "bool" }],
-    outputs: [{ name: "", type: "uint256[][]", internalType: "uint256[][]" }],
+    outputs: [
+      {
+        name: "",
+        type: "tuple[]",
+        internalType: "struct OpinionPool.Option[]",
+        components: [
+          { name: "name", type: "string", internalType: "string" },
+          { name: "shares", type: "uint256", internalType: "uint256" },
+        ],
+      },
+    ],
     stateMutability: "view",
   },
   {
