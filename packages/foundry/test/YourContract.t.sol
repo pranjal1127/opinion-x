@@ -2,19 +2,15 @@
 pragma solidity ^0.8.13;
 
 import "forge-std/Test.sol";
-import "../contracts/YourContract.sol";
+import "../contracts/OpinionFactory.sol";
 
 contract YourContractTest is Test {
-  YourContract public yourContract;
+    OpinionFactory public opinionFactory;
+    address token = vm.addr(0);
+    address backendWallet = vm.addr(1);
+    address opinionPoolImplementation = vm.addr(2);
 
-  function setUp() public {
-    yourContract = new YourContract(vm.addr(1));
-  }
-
-  function testMessageOnDeployment() public view {
-    require(
-      keccak256(bytes(yourContract.greeting()))
-        == keccak256("Building Unstoppable Apps!!!")
-    );
-  }
+    function setUp() public {
+        opinionFactory = new OpinionFactory(token, backendWallet, opinionPoolImplementation);
+    }
 }
