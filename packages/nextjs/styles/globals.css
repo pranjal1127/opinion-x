@@ -30,3 +30,11 @@ p {
 .btn.btn-ghost {
   @apply shadow-none;
 }
+
+:root{
+  background-color: transparent;
+  background-image: radial-gradient(rgb(90, 90, 107) 1px, #000000 1px);
+  background-size: 30px 30px;
+  width: 100%;
+  height: 100%;
+}
