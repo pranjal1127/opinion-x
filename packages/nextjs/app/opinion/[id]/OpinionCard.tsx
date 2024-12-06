@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { formatEther } from "viem";
+import { useTradeHook } from "./useTradeHook";
+import { formatEther, parseEther } from "viem";
 import { useReadContract } from "wagmi";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
 
@@ -25,6 +26,8 @@ const OpinionCard = ({ id }: { id: string }) => {
     functionName: "getAllOptionQuotes",
     args: [true],
   });
+  const mutablePoolABI = [...poolABI];
+  const { executeTrade, isLoading, error: tradeError } = useTradeHook(id as `0x${string}`, mutablePoolABI);
 
   useEffect(() => {
     console.log(options, optionStatus, optionError);
@@ -41,6 +44,17 @@ const OpinionCard = ({ id }: { id: string }) => {
           {ele.name} - $ {formatEther(ele?.shares)}
         </p>
       ))}
+      <button
+        className="btn btn-secondary btn-sm self-end md:self-start"
+        onClick={async () => {
+          console.log("BUY");
+          await executeTrade(0n, parseEther("5"), "BUY");
+        }}
+        disabled={isLoading}
+      >
+        {isLoading && <span className="loading loading-spinner loading-xs"></span>}
+        Buy 💹
+      </button>
       {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
     </div>
   );
