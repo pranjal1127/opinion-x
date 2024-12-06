@@ -1,13 +1,18 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
+import { Abi } from "abitype";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
+import { erc20Abi } from "viem";
+import { useAccount, useReadContract } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
+import { poolABI } from "~~/contracts/abis/OpinionPool";
 
 const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
+  const { address: connectedAddress, chainId } = useAccount();
 
   return (
     <>
@@ -39,6 +44,7 @@ const Home: NextPage = () => {
             </code>
           </p>
         </div>
+        {connectedAddress && chainId && <PoolCard />}
 
         <div className="flex-grow bg-base-300 w-full mt-16 px-8 py-12">
           <div className="flex justify-center items-center gap-12 flex-col sm:flex-row">
