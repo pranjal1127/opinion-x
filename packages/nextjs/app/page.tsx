@@ -1,14 +1,19 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
+import { Abi } from "abitype";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
+import { erc20Abi } from "viem";
+import { useAccount, useReadContract } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Card from "~~/components/Cards";
+import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
+import { poolABI } from "~~/contracts/abis/OpinionPool";
 
 const Home: NextPage = () => {
-  const { address: connectedAddress } = useAccount();
+  const { address: connectedAddress, chainId } = useAccount();
 
   return (
     <>
