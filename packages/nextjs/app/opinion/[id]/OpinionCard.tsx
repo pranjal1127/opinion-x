@@ -55,6 +55,18 @@ const OpinionCard = ({ id }: { id: string }) => {
         {isLoading && <span className="loading loading-spinner loading-xs"></span>}
         Buy 💹
       </button>
+
+      <button
+        className="btn btn-danger btn-sm self-end md:self-start"
+        onClick={async () => {
+          console.log("SELL");
+          await executeTrade(0n, parseEther("5"), "SELL");
+        }}
+        disabled={isLoading}
+      >
+        {isLoading && <span className="loading loading-spinner loading-xs"></span>}
+        Sell 🔻
+      </button>
       {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
     </div>
   );
