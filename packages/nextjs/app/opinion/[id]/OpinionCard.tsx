@@ -6,9 +6,9 @@ import { poolABI } from "~~/contracts/abis/OpinionPool";
 
 const OpinionCard = ({ id }: { id: string }) => {
   const [share, setShare] = React.useState("");
-
   const [isBuy, setIsBuy] = React.useState(true);
-  const [activeOption, setActiveOption] = React.useState(0);
+  const [activeOption, setActiveOption] = React.useState<number | null>(null);
+
   const {
     data: name,
     status,
@@ -41,7 +41,7 @@ const OpinionCard = ({ id }: { id: string }) => {
     address: id, // params
     abi: poolABI,
     functionName: "quote",
-    args: [BigInt(activeOption), parseEther(share), isBuy],
+    args: [BigInt(activeOption ?? 0), parseEther(share), isBuy],
   });
 
   useEffect(() => {
@@ -79,86 +79,76 @@ const OpinionCard = ({ id }: { id: string }) => {
           {ele.name} - $ {formatEther(ele?.shares)}
         </button>
       ))}
-      <button
-        className="btn btn-secondary btn-sm self-end md:self-start"
-        onClick={async () => {
-          console.log("BUY");
-          await executeTrade(0n, parseEther(share), BigInt(formatEther(shareCost ?? BigInt(0))), "BUY");
-        }}
-        disabled={isLoading}
-      >
-        {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-        Buy 💹
-      </button>
 
-      <button
-        className="btn btn-danger btn-sm self-end md:self-start"
-        onClick={async () => {
-          console.log("SELL");
-          await executeTrade(0n, parseEther(share), BigInt(formatEther(shareCost ?? BigInt(0))), "SELL");
-        }}
-        disabled={isLoading}
-      >
-        {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-        Sell 🔻
-      </button>
-
-      <label>
-        Text input: <input name="myInput" value={share} onChange={e => setShare(e.target.value)} />
-      </label>
-      <div className="mt-4"></div>
-
-      <div className="flex justify-between px-3">
-        <div>
-          <button
-            className="bg-secondary px-5 py-2 rounded-lg text-white"
-            onClick={async () => {
-              console.log("BUY");
-              setIsBuy(true);
-              await executeTrade(BigInt(activeOption), parseEther(share), "BUY");
-            }}
-            disabled={isLoading}
-          >
-            {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-            Buy 💹
-          </button>
+      {activeOption !== null && (
+        <div className="mt-4">
+          <div className="flex justify-between px-3">
+            <div>
+              <button
+                className="bg-secondary px-5 py-2 rounded-lg text-white"
+                onClick={async () => {
+                  console.log("BUY");
+                  setIsBuy(true);
+                }}
+              >
+                Buy 💹
+              </button>
+            </div>
+            <div>
+              <button
+                className="bg-secondary px-5 py-2 rounded-lg text-white"
+                onClick={async () => {
+                  console.log("SELL");
+                  setIsBuy(false);
+                }}
+              >
+                Sell 🔻
+              </button>
+            </div>
+          </div>
+          {isBuy !== null && (
+            <div className="mt-4">
+              <label className="block font-bold mb-2" htmlFor="shareInput">
+                Enter number of shares:
+              </label>
+              <input
+                type="number"
+                id="shareInput"
+                className="w-full px-3 py-2 border rounded-lg mb-2"
+                value={share}
+                onChange={e => setShare(e.target.value)}
+              />
+              <div className="mt-4">
+                {shareCostStatus === "pending" ? (
+                  <div className="loading loading-spinner loading-lg"></div>
+                ) : shareCostStatus === "success" ? (
+                  <p className="text-green-500 font-bold">Share Cost: {formatCost(shareCost || BigInt(0))}</p>
+                ) : (
+                  <p className="text-red-500 font-bold">
+                    Error: {shareCostError?.message || "Failed to fetch share cost"}
+                  </p>
+                )}
+              </div>
+              <button
+                className="bg-secondary px-5 py-2 rounded-lg text-white"
+                onClick={async () => {
+                  console.log(isBuy ? "BUY" : "SELL");
+                  await executeTrade(
+                    BigInt(activeOption),
+                    BigInt(activeOption),
+                    parseEther(share),
+                    isBuy ? "BUY" : "SELL",
+                  );
+                }}
+                disabled={isLoading}
+              >
+                {isLoading && <span className="loading loading-spinner loading-xs"></span>}
+                {isBuy ? "Buy 💹" : "Sell 🔻"}
+              </button>
+            </div>
+          )}
         </div>
-        <div>
-          <button
-            className="bg-secondary px-5 py-2 rounded-lg text-white"
-            onClick={async () => {
-              console.log("SELL");
-              setIsBuy(false);
-              await executeTrade(BigInt(activeOption), parseEther(share), "SELL");
-            }}
-            disabled={isLoading}
-          >
-            {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-            Sell 🔻
-          </button>
-        </div>
-        <label className="block font-bold mb-2" htmlFor="shareInput">
-          Enter number of shares:
-        </label>
-        <input
-          type="number"
-          id="shareInput"
-          className="w-full px-3 py-2 border rounded-lg mb-2"
-          value={share}
-          onChange={e => setShare(e.target.value)}
-        />
-      </div>
-      {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
-      <p>If the Share Status is pending!</p>
-      <div className="mt-4">
-        {shareCostStatus === "pending" ? (
-          <div className="loading loading-spinner loading-lg"></div> // Replace with your loading component or spinner class
-        ) : shareCostStatus === "success" ? (
-          <p>Share Cost: {formatCost(shareCost || BigInt(0))}</p>
-        ) : (
-          <p>Error: {shareCostError?.message || "Failed to fetch share cost"}</p>
-        )}
-      </div>
+      )}
     </div>
   );
 };

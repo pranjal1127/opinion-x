@@ -8,9 +8,11 @@ import { erc20Abi } from "viem";
 import { useAccount, useReadContract } from "wagmi";
 import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Card from "~~/components/Cards";
+import { Footer } from "~~/components/Footer";
 import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
+
 const Home: NextPage = () => {
   const { address: connectedAddress, chainId } = useAccount();
 
@@ -24,10 +26,9 @@ const Home: NextPage = () => {
             <span className="block text-4xl font-bold">OpinionX</span>
           </h1>
         </div>
-        <div>
-          
-        </div>
+        <div></div>
       </div>
+      <Footer />
     </>
   );
 };
