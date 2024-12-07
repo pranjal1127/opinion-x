@@ -26,7 +26,7 @@ export const useTradeHook = (contractAddress: `0x${string}`, poolABI: any[]) => 
     args: [connectedAddress ?? "0x", contractAddress],
   });
 
-  const executeTrade = async (optionId: bigint, amount: bigint, type: TradeType) => {
+  const executeTrade = async (optionId: bigint, amount: bigint, cost: bigint, type: TradeType) => {
     setIsLoading(true);
     setError(null);
 
@@ -34,7 +34,7 @@ export const useTradeHook = (contractAddress: `0x${string}`, poolABI: any[]) => 
       async () => {
         try {
           // Check if approval is needed
-          const requiredAllowance = amount;
+          const requiredAllowance = cost;
           const currentAllowance = allowance ?? 0n;
 
           let approveTxHash: `0x${string}` | undefined;
