@@ -64,9 +64,11 @@ export const Header = () => {
         <div className="">
           <Image src="/opinionX_logo-removebg-preview.png" alt="OpinionX Logo" width={100} height={100} />
         </div>
-        {/* <SwitchTheme /> */}
-        <RainbowKitCustomConnectButton />
-        <FaucetButton />
+        <div className="flex justify-between items-center">
+          {/* <SwitchTheme /> */}
+          <RainbowKitCustomConnectButton />
+          <FaucetButton />
+        </div>
       </div>
     </div>
   );

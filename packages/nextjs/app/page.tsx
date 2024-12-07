@@ -11,20 +11,27 @@ import Card from "~~/components/Cards";
 import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
+import HeroBanner from "~~/components/HeroBanner";
 
 const Home: NextPage = () => {
   const { address: connectedAddress, chainId } = useAccount();
 
   return (
     <>
-      <div className="flex items-center flex-col flex-grow pt-10">
-        <div className="px-5">
+      <div className="flex items-center flex-col flex-grow pt-10 ">
+        <div className="px-5 h-[15vh]">
+          {/* <HeroBanner/> */}
           <h1 className="text-center">
             <span className="block text-2xl mb-2">Welcome to</span>
             <span className="block text-4xl font-bold">OpinionX</span>
           </h1>
         </div>
         <div>
+          <Card title="Card Title" description="Card Description" betoption="Bet Option 1" betoption2="Bet Option 2" />
+          <Card title="Card Title" description="Card Description" betoption="Bet Option 1" betoption2="Bet Option 2" />
+          <Card title="Card Title" description="Card Description" betoption="Bet Option 1" betoption2="Bet Option 2" />
+          <Card title="Card Title" description="Card Description" betoption="Bet Option 1" betoption2="Bet Option 2" />
+          <Card title="Card Title" description="Card Description" betoption="Bet Option 1" betoption2="Bet Option 2" />
           <Card title="Card Title" description="Card Description" betoption="Bet Option 1" betoption2="Bet Option 2" />
         </div>
       </div>
