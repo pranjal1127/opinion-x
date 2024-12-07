@@ -44,16 +44,14 @@ const OpinionCard = ({ id }: { id: string }) => {
     args: [BigInt(activeOption), parseEther(share), isBuy],
   });
 
-  
-
   useEffect(() => {
     console.log(options, optionStatus, optionError);
   }, [options, optionStatus, optionError]);
 
-  const formatCost = (num : bigint)=>{
+  const formatCost = (num: bigint) => {
     const numEth = formatEther(num);
     return formatEther(BigInt(numEth));
-  }
+  };
 
   return (
     <div className="flex flex-col w-auto bg-primary  mx-auto my-auto rounded-2xl p-5">
@@ -105,7 +103,9 @@ const OpinionCard = ({ id }: { id: string }) => {
         Sell 🔻
       </button>
 
-      <label>Text input: <input name="myInput" value={share} onChange={(e) => setShare(e.target.value)}/></label>
+      <label>
+        Text input: <input name="myInput" value={share} onChange={e => setShare(e.target.value)} />
+      </label>
       <div className="mt-4"></div>
 
       <div className="flex justify-between px-3">
@@ -151,16 +151,15 @@ const OpinionCard = ({ id }: { id: string }) => {
       {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
       <p>If the Share Status is pending!</p>
       <div className="mt-4">
-      {shareCostStatus === "pending" ? (
-        <div className="loading loading-spinner loading-lg"></div> // Replace with your loading component or spinner class
-      ) : shareCostStatus === "success" ? (
-        <p>Share Cost: {formatCost(shareCost || BigInt(0))}</p>
-      ) : (
-        <p>Error: {shareCostError?.message || "Failed to fetch share cost"}</p>
-      )}
+        {shareCostStatus === "pending" ? (
+          <div className="loading loading-spinner loading-lg"></div> // Replace with your loading component or spinner class
+        ) : shareCostStatus === "success" ? (
+          <p>Share Cost: {formatCost(shareCost || BigInt(0))}</p>
+        ) : (
+          <p>Error: {shareCostError?.message || "Failed to fetch share cost"}</p>
+        )}
+      </div>
     </div>
-    </div>
-    
   );
 };
 
