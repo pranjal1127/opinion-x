@@ -59,7 +59,7 @@ const OpinionCard = ({ id }: { id: string }) => {
       <p>
         <span className="font-bold">Opinion Address:</span> {id}
       </p>
-      <p className="overflow-hidden">
+      <p className="overflow-hidden   ">
         <span className="font-bold">Question: </span>
         {name}
       </p>
