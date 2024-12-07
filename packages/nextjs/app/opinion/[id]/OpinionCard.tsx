@@ -44,9 +44,16 @@ const OpinionCard = ({ id }: { id: string }) => {
     args: [BigInt(activeOption), parseEther(share), isBuy],
   });
 
+  
+
   useEffect(() => {
     console.log(options, optionStatus, optionError);
   }, [options, optionStatus, optionError]);
+
+  const formatCost = (num : bigint)=>{
+    const numEth = formatEther(num);
+    return formatEther(BigInt(numEth));
+  }
 
   return (
     <div className="mx-auto my-auto">
@@ -63,7 +70,7 @@ const OpinionCard = ({ id }: { id: string }) => {
         className="btn btn-secondary btn-sm self-end md:self-start"
         onClick={async () => {
           console.log("BUY");
-          await executeTrade(0n, parseEther("5"), "BUY");
+          await executeTrade(0n, parseEther(share), BigInt(formatEther(shareCost ?? BigInt(0))), "BUY");
         }}
         disabled={isLoading}
       >
@@ -75,14 +82,26 @@ const OpinionCard = ({ id }: { id: string }) => {
         className="btn btn-danger btn-sm self-end md:self-start"
         onClick={async () => {
           console.log("SELL");
-          await executeTrade(0n, parseEther("5"), "SELL");
+          await executeTrade(0n, parseEther(share), BigInt(formatEther(shareCost ?? BigInt(0))), "SELL");
         }}
         disabled={isLoading}
       >
         {isLoading && <span className="loading loading-spinner loading-xs"></span>}
         Sell 🔻
       </button>
+
+      <label>Text input: <input name="myInput" value={share} onChange={(e) => setShare(e.target.value)}/></label>
       {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
+      <p>If the Share Status is pending!</p>
+      <div className="mt-4">
+      {shareCostStatus === "pending" ? (
+        <div className="loading loading-spinner loading-lg"></div> // Replace with your loading component or spinner class
+      ) : shareCostStatus === "success" ? (
+        <p>Share Cost: {formatCost(shareCost || BigInt(0))}</p>
+      ) : (
+        <p>Error: {shareCostError?.message || "Failed to fetch share cost"}</p>
+      )}
+    </div>
     </div>
   );
 };
