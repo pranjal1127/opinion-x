@@ -34,7 +34,7 @@ const OpinionCard = ({ id }: { id: string }) => {
   const { executeTrade, isLoading, error: tradeError } = useTradeHook(id as `0x${string}`, mutablePoolABI);
 
   const {
-    data : shareCost,
+    data: shareCost,
     status: shareCostStatus,
     error: shareCostError,
   } = useReadContract({
@@ -49,41 +49,76 @@ const OpinionCard = ({ id }: { id: string }) => {
   }, [options, optionStatus, optionError]);
 
   return (
-    <div className="mx-auto my-auto">
-      <h1>Opinion Details</h1>
-      <p>Opinion Address: {id}</p>
-      <p>Name: {name}</p>
-      <p>Options: </p>
-      {options?.map((ele, index) => (
-        <p key={index}>
-          {ele.name} - $ {formatEther(ele?.shares)}
-        </p>
-      ))}
-      <button
-        className="btn btn-secondary btn-sm self-end md:self-start"
-        onClick={async () => {
-          console.log("BUY");
-          await executeTrade(0n, parseEther("5"), "BUY");
-        }}
-        disabled={isLoading}
-      >
-        {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-        Buy 💹
-      </button>
+    <div className="flex flex-col w-auto bg-primary  mx-auto my-auto rounded-2xl p-5">
+      <h1 className="text-xl">Opinion Details</h1>
+      <p>
+        <span className="font-bold">Opinion Address:</span> {id}
+      </p>
+      <p className="overflow-hidden">
+        <span className="font-bold">Question: </span>
+        {name}
+      </p>
 
-      <button
-        className="btn btn-danger btn-sm self-end md:self-start"
-        onClick={async () => {
-          console.log("SELL");
-          await executeTrade(0n, parseEther("5"), "SELL");
-        }}
-        disabled={isLoading}
-      >
-        {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-        Sell 🔻
-      </button>
+      {/* Options */}
+      <p>
+        <span className="font-bold">Options: </span>
+      </p>
+      {options?.map((ele, index) => (
+        <button
+          className="px-5 py-2 mb-2 bg-secondary rounded-lg"
+          key={index}
+          onClick={() => {
+            setActiveOption(index);
+          }}
+        >
+          {ele.name} - $ {formatEther(ele?.shares)}
+        </button>
+      ))}
+      <div className="mt-4"></div>
+
+      <div className="flex justify-between px-3">
+        <div>
+          <button
+            className="bg-secondary px-5 py-2 rounded-lg text-white"
+            onClick={async () => {
+              console.log("BUY");
+              setIsBuy(true);
+              await executeTrade(BigInt(activeOption), parseEther(share), "BUY");
+            }}
+            disabled={isLoading}
+          >
+            {isLoading && <span className="loading loading-spinner loading-xs"></span>}
+            Buy 💹
+          </button>
+        </div>
+        <div>
+          <button
+            className="bg-secondary px-5 py-2 rounded-lg text-white"
+            onClick={async () => {
+              console.log("SELL");
+              setIsBuy(false);
+              await executeTrade(BigInt(activeOption), parseEther(share), "SELL");
+            }}
+            disabled={isLoading}
+          >
+            {isLoading && <span className="loading loading-spinner loading-xs"></span>}
+            Sell 🔻
+          </button>
+        </div>
+        <label className="block font-bold mb-2" htmlFor="shareInput">
+          Enter number of shares:
+        </label>
+        <input
+          type="number"
+          id="shareInput"
+          className="w-full px-3 py-2 border rounded-lg mb-2"
+          value={share}
+          onChange={e => setShare(e.target.value)}
+        />
+      </div>
       {/* {options?.reduce((acc, ele, index) => `${acc}${index} ${ele.name} - $ ${formatEther(ele?.shares)} <br/>`, "")} */}
     </div>
+    
   );
 };
 

@@ -20,7 +20,7 @@ export default function page({}: OpinionPageProps) {
 
   const { address: connectedAddress, chainId } = useAccount();
 
-  return <>{isMounted() && connectedAddress ? <OpinionCard id={address} /> : <div>Connect your wallet</div>}</>;
+  return <>{isMounted() && connectedAddress ? <OpinionCard id={address} /> : <div className="flex justify-center items-center bg-red-500 px-5 py-2 rounded-xl">Connect your wallet</div>}</>;
 }
 
 // export async function generateMetadata({ params }: OpinionPageProps): Promise<Metadata> {
