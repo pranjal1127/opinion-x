@@ -1,13 +1,8 @@
 import React, { useEffect } from "react";
-import { useAccount, useReadContract } from "wagmi";
-import { readContractData } from "~~/app/helpers";
+import { useReadContract } from "wagmi";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
 
-type Props = {};
-
-export default function PoolCard({}: Props) {
-  const { address: connectedAddress, chainId } = useAccount();
-
+export default function PoolCard() {
   const { data, status, error } = useReadContract({
     address: "0x04Cf4135B65e6B866F3eF9C6A2CD526779720EFA",
     abi: poolABI,

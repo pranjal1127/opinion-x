@@ -2,12 +2,8 @@
 
 import { useEffect } from "react";
 import type { NextPage } from "next";
-import { useAccount } from "wagmi";
 import Card from "~~/components/Cards";
 import { Footer } from "~~/components/Footer";
-import PoolCard from "~~/components/PoolCard";
-import { Address } from "~~/components/scaffold-eth";
-import { poolABI } from "~~/contracts/abis/OpinionPool";
 import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 type OpinionPoolCreatedEvent = {
@@ -49,8 +45,6 @@ const Home: NextPage = () => {
     console.log("Events");
     console.log(events, isLoadingEvents, errorReadingEvents);
   }, [events, isLoadingEvents, errorReadingEvents]);
-
- 
 
   return (
     <>

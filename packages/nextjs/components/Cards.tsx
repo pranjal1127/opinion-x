@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 
 interface CardProps {
@@ -9,21 +9,22 @@ interface CardProps {
 }
 
 const Card: React.FC<CardProps> = ({ title, description, betoption, betoption2 }) => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [touchStartY, setTouchStartY] = useState(0);
+  // const [showPopup, setShowPopup] = useState(false);
+  // const [touchStartY, setTouchStartY] = useState(0);
   const handleButtonClick = () => {
-    setShowPopup(true);
+    // setShowPopup(true);
+    console.log("Click Button");
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStartY(e.touches[0].clientY);
-  };
+  // const handleTouchStart = (e: React.TouchEvent) => {
+  //   setTouchStartY(e.touches[0].clientY);
+  // };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (touchStartY - e.touches[0].clientY > 50) {
-      setShowPopup(false);
-    }
-  };
+  // const handleTouchMove = (e: React.TouchEvent) => {
+  //   if (touchStartY - e.touches[0].clientY > 50) {
+  //     setShowPopup(false);
+  //   }
+  // };
 
   return (
     <>
