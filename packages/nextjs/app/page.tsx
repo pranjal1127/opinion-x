@@ -8,26 +8,6 @@ import { Footer } from "~~/components/Footer";
 import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
-import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
-
-type OpinionPoolCreatedEvent = {
-  args: [string, string, string[]];
-  // Add other properties if needed
-};
-
-const transformQuestions = (eventData: OpinionPoolCreatedEvent[] = []) => {
-  return eventData.map(event => {
-    const { args } = event;
-    const poolAddress = args[0];
-    const question = args[1];
-    const options = args[2];
-    return {
-      poolAddress,
-      question,
-      options,
-    };
-  });
-};
 
 const Home: NextPage = () => {
   const { address: connectedAddress, chainId } = useAccount();
