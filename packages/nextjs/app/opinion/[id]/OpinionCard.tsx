@@ -5,6 +5,10 @@ import { useReadContract } from "wagmi";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
 
 const OpinionCard = ({ id }: { id: string }) => {
+  const [share, setShare] = React.useState("");
+
+  const [isBuy, setIsBuy] = React.useState(true);
+  const [activeOption, setActiveOption] = React.useState(0);
   const {
     data: name,
     status,
@@ -28,6 +32,17 @@ const OpinionCard = ({ id }: { id: string }) => {
   });
   const mutablePoolABI = [...poolABI];
   const { executeTrade, isLoading, error: tradeError } = useTradeHook(id as `0x${string}`, mutablePoolABI);
+
+  const {
+    data : shareCost,
+    status: shareCostStatus,
+    error: shareCostError,
+  } = useReadContract({
+    address: id, // params
+    abi: poolABI,
+    functionName: "quote",
+    args: [BigInt(activeOption), parseEther(share), isBuy],
+  });
 
   useEffect(() => {
     console.log(options, optionStatus, optionError);
