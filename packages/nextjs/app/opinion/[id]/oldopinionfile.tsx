@@ -1,5 +1,4 @@
 //old code
-
 import React, { useEffect } from "react";
 import { useTradeHook } from "./useTradeHook";
 import { formatEther, parseEther } from "viem";
@@ -11,12 +10,8 @@ const OpinionCard = ({ id }: { id: string }) => {
 
   const [isBuy, setIsBuy] = React.useState(true);
   const [activeOption, setActiveOption] = React.useState(0);
-  const {
-    data: name,
-    status,
-    error,
-  } = useReadContract({
-    address: id, // params
+  const { data: name } = useReadContract({
+    address: id,
     abi: poolABI,
     functionName: "name",
     args: [],
@@ -33,7 +28,7 @@ const OpinionCard = ({ id }: { id: string }) => {
     args: [true],
   });
   const mutablePoolABI = [...poolABI];
-  const { executeTrade, isLoading, error: tradeError } = useTradeHook(id as `0x${string}`, mutablePoolABI);
+  const { executeTrade, isLoading } = useTradeHook(id as `0x${string}`, mutablePoolABI);
 
   const {
     data: shareCost,
@@ -105,8 +100,7 @@ const OpinionCard = ({ id }: { id: string }) => {
         Sell 🔻
       </button> */}
 
-
-    <div className="mt-4"></div>
+      <div className="mt-4"></div>
 
       <div className="flex justify-between px-3">
         <div>
@@ -115,7 +109,7 @@ const OpinionCard = ({ id }: { id: string }) => {
             onClick={async () => {
               console.log("BUY");
               setIsBuy(true);
-              await executeTrade(BigInt(activeOption),BigInt((activeOption)), parseEther(share), "BUY");
+              await executeTrade(BigInt(activeOption), BigInt(activeOption), parseEther(share), "BUY");
             }}
             disabled={isLoading}
           >
@@ -129,7 +123,7 @@ const OpinionCard = ({ id }: { id: string }) => {
             onClick={async () => {
               console.log("SELL");
               setIsBuy(false);
-              await executeTrade(BigInt(activeOption),BigInt(activeOption), parseEther(share), "SELL");
+              await executeTrade(BigInt(activeOption), BigInt(activeOption), parseEther(share), "SELL");
             }}
             disabled={isLoading}
           >

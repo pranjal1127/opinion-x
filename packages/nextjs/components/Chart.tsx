@@ -24,62 +24,62 @@ export default function Chart() {
     script2.async = true;
     document.body.appendChild(script2);
 
-    script2.onload = function () {
-      const stockChart = new CanvasJS.StockChart("chartContainer", {
-        title: {
-          text: "StockChart with Numeric Axis",
-        },
-        animationEnabled: true,
-        exportEnabled: true,
-        charts: [
-          {
-            axisX: {
-              crosshair: {
-                enabled: true,
-                snapToDataPoint: true,
-              },
-            },
-            axisY: {
-              crosshair: {
-                enabled: true,
-                //snapToDataPoint: true
-              },
-            },
-            data: data,
-          },
-        ],
-        rangeSelector: {
-          inputFields: {
-            startValue: 4000,
-            endValue: 6000,
-            valueFormatString: "###0",
-          },
+    // script2.onload = function () {
+    //   const stockChart = new CanvasJS.StockChart("chartContainer", {
+    //     title: {
+    //       text: "StockChart with Numeric Axis",
+    //     },
+    //     animationEnabled: true,
+    //     exportEnabled: true,
+    //     charts: [
+    //       {
+    //         axisX: {
+    //           crosshair: {
+    //             enabled: true,
+    //             snapToDataPoint: true,
+    //           },
+    //         },
+    //         axisY: {
+    //           crosshair: {
+    //             enabled: true,
+    //             //snapToDataPoint: true
+    //           },
+    //         },
+    //         data: data,
+    //       },
+    //     ],
+    //     rangeSelector: {
+    //       inputFields: {
+    //         startValue: 4000,
+    //         endValue: 6000,
+    //         valueFormatString: "###0",
+    //       },
 
-          buttons: [
-            {
-              label: "1000",
-              range: 1000,
-              rangeType: "number",
-            },
-            {
-              label: "2000",
-              range: 2000,
-              rangeType: "number",
-            },
-            {
-              label: "5000",
-              range: 5000,
-              rangeType: "number",
-            },
-            {
-              label: "All",
-              rangeType: "all",
-            },
-          ],
-        },
-      });
-      stockChart.render();
-    };
+    //       buttons: [
+    //         {
+    //           label: "1000",
+    //           range: 1000,
+    //           rangeType: "number",
+    //         },
+    //         {
+    //           label: "2000",
+    //           range: 2000,
+    //           rangeType: "number",
+    //         },
+    //         {
+    //           label: "5000",
+    //           range: 5000,
+    //           rangeType: "number",
+    //         },
+    //         {
+    //           label: "All",
+    //           rangeType: "all",
+    //         },
+    //       ],
+    //     },
+    //   });
+    //   stockChart.render();
+    // };
 
     return () => {
       document.body.removeChild(script1);
@@ -92,5 +92,4 @@ export default function Chart() {
       <div id="chartContainer" className="h-[450px] w-[50vw] mt-10"></div>
     </div>
   );
-};
-
+}

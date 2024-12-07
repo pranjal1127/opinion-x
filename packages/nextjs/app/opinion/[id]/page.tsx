@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import OpinionCard from "./OpinionCard";
 import { useIsMounted } from "usehooks-ts";
 import { useAccount } from "wagmi";
-import Chart from "~~/components/Chart";
 
 interface OpinionPageProps {
   params: {
@@ -13,13 +12,13 @@ interface OpinionPageProps {
   };
 }
 
-export default function page({}: OpinionPageProps) {
+export default function Page({}: OpinionPageProps) {
   const isMounted = useIsMounted();
   // usePathname
   const path = usePathname();
   const address = path.split("/").pop() ?? "";
 
-  const { address: connectedAddress, chainId } = useAccount();
+  const { address: connectedAddress } = useAccount();
 
   return (
     <>

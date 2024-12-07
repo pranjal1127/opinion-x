@@ -9,11 +9,7 @@ const OpinionCard = ({ id }: { id: string }) => {
   const [isBuy, setIsBuy] = React.useState(true);
   const [activeOption, setActiveOption] = React.useState<number | null>(null);
 
-  const {
-    data: name,
-    status,
-    error,
-  } = useReadContract({
+  const { data: name } = useReadContract({
     address: id, // params
     abi: poolABI,
     functionName: "name",
@@ -31,7 +27,7 @@ const OpinionCard = ({ id }: { id: string }) => {
     args: [true],
   });
   const mutablePoolABI = [...poolABI];
-  const { executeTrade, isLoading, error: tradeError } = useTradeHook(id as `0x${string}`, mutablePoolABI);
+  const { executeTrade, isLoading } = useTradeHook(id as `0x${string}`, mutablePoolABI);
 
   const {
     data: shareCost,
