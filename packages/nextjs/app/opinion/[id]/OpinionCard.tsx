@@ -1,13 +1,36 @@
 import React, { useEffect } from "react";
 import { useTradeHook } from "./useTradeHook";
 import { formatEther, parseEther } from "viem";
-import { useReadContract } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
+import { useEventHistory } from "~~/hooks/scaffold-eth/useEventHistory";
 
 const OpinionCard = ({ id }: { id: string }) => {
+  const { address } = useAccount();
   const [share, setShare] = React.useState("");
   const [isBuy, setIsBuy] = React.useState(true);
   const [activeOption, setActiveOption] = React.useState<number | null>(null);
+
+  const {
+    data: eventHistory,
+    isLoading: isLoadingEvent,
+    error,
+  } = useEventHistory({
+    contractAddress: id, // Your contract address
+    contractAbi: poolABI, // Your contract's ABI
+    eventName: "SharesBought",
+    fromBlock: 7220425n, // Optional starting block
+    filters: {
+      // Optional filters for the event
+      user: address,
+    },
+    watch: true, // Optional: watch for new events
+    options: {
+      blockData: true,
+      transactionData: true,
+      receiptData: true,
+    },
+  });
 
   const { data: name } = useReadContract({
     address: id, // params
@@ -44,6 +67,10 @@ const OpinionCard = ({ id }: { id: string }) => {
     console.log(options, optionStatus, optionError);
   }, [options, optionStatus, optionError]);
 
+  useEffect(() => {
+    console.log(eventHistory, isLoadingEvent, error);
+  }, [eventHistory, isLoadingEvent, error]);
+
   const formatCost = (num: bigint) => {
     const numEth = formatEther(num);
     return formatEther(BigInt(numEth));
@@ -51,19 +78,22 @@ const OpinionCard = ({ id }: { id: string }) => {
 
   return (
     <div className="flex flex-col w-auto bg-primary  mx-auto my-auto rounded-2xl p-5">
-      <h1 className="text-xl">Opinion Details</h1>
-      <p>
+      <h1 className="text-xl mx-auto">Monetize your Opinion</h1>
+      {/* <p>
         <span className="font-bold">Opinion Address:</span> {id}
       </p>
       <p className="overflow-hidden   ">
         <span className="font-bold">Question: </span>
+      </p> */}
+      <p className="text-xl font-bold overflow-hidden">
+        {/* <span className="font-bold"></span> */}
         {name}
       </p>
 
       {/* Options */}
-      <p>
+      {/* <p>
         <span className="font-bold">Options: </span>
-      </p>
+      </p> */}
       {options?.map((ele, index) => (
         <button
           className="px-5 py-2 mb-2 bg-secondary rounded-lg"
@@ -131,8 +161,8 @@ const OpinionCard = ({ id }: { id: string }) => {
                   console.log(isBuy ? "BUY" : "SELL");
                   await executeTrade(
                     BigInt(activeOption),
-                    BigInt(activeOption),
                     parseEther(share),
+                    parseEther(formatCost(shareCost ?? BigInt(0))),
                     isBuy ? "BUY" : "SELL",
                   );
                 }}

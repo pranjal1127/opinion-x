@@ -13,7 +13,6 @@ interface OpinionPageProps {
 }
 
 export default function Page({}: OpinionPageProps) {
-  const isMounted = useIsMounted();
   // usePathname
   const path = usePathname();
   const address = path.split("/").pop() ?? "";
@@ -22,7 +21,7 @@ export default function Page({}: OpinionPageProps) {
 
   return (
     <>
-      {isMounted() && connectedAddress ? (
+      {connectedAddress ? (
         <OpinionCard id={address} />
       ) : (
         <div className="flex justify-center items-center bg-red-500 px-5 py-2 rounded-xl">Connect your wallet</div>

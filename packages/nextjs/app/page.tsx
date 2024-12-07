@@ -43,7 +43,11 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     console.log("Events");
-    console.log(events, isLoadingEvents, errorReadingEvents);
+    console.log(
+      transformQuestions(events as unknown as OpinionPoolCreatedEvent[]),
+      isLoadingEvents,
+      errorReadingEvents,
+    );
   }, [events, isLoadingEvents, errorReadingEvents]);
 
   return (

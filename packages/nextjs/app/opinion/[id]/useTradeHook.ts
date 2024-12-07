@@ -27,6 +27,7 @@ export const useTradeHook = (contractAddress: `0x${string}`, poolABI: any[]) => 
   });
 
   const executeTrade = async (optionId: bigint, amount: bigint, cost: bigint, type: TradeType) => {
+    console.log(optionId, amount, cost, type);
     setIsLoading(true);
     setError(null);
 
