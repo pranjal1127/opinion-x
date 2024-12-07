@@ -26,16 +26,16 @@ const Card: React.FC<CardProps> = ({ title, description, betoption, betoption2 }
 
   return (
     <>
-      <div className="px-5 mx-2 my-4 bg-primary text-slaty-400 ease-in-out transition duration-300 flex flex-col justify-between w-80 h-[18vh] border border-violet-950 rounded-2xl hover:shadow-xl hover:shadow-secondary hover:scale-105">
+      <div className="px-5 mx-2 my-6 bg-primary text-slaty-400 ease-in-out transition duration-300 flex flex-col justify-between w-80 h-[18vh] border border-violet-950 rounded-2xl hover:shadow-lg  hover:shadow-secondary hover:scale-105">
         <div className="mx-2 mt-2">
-          <h2 className="font-bold ">{title}</h2>
+          <h2 className="font-bold text-lg">{title}</h2>
           <p>{description}</p>
         </div>
-        <div className="flex justify-between px-3 py-2">
-          <button onClick={handleButtonClick} className="px-4 py-2 rounded-xl bg-green-500 text-white hover:scale-105">
+        <div className="flex justify-between px-2 py-2">
+          <button onClick={handleButtonClick} className="px-4 py-2 rounded-xl bg-slate-400 hover:bg-slate-600  text-white hover:scale-105">
             {betoption}
           </button>
-          <button onClick={handleButtonClick} className="px-5 py-2 rounded-xl bg-red-500 text-white hover:scale-105">
+          <button onClick={handleButtonClick} className="px-5 py-2 rounded-xl bg-slate-400 hover:bg-slate-600 text-white hover:scale-105">
             {betoption2}
           </button>
         </div>

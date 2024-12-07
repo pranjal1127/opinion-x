@@ -2495,7 +2495,7 @@
     "@noble/hashes" "~1.5.0"
     "@scure/base" "~1.1.8"
 
-"@se-2/foundry@file:C:\\Users\\Dell\\Downloads\\Project-Fronten\\opinion-x\\packages\\foundry":
+"@se-2/foundry@file:D:\\hackathons and competitions\\EthIndia2024\\opinion-x\\packages\\foundry":
   version "0.0.1"
   resolved "file:packages/foundry"
   dependencies:
@@ -2506,7 +2506,7 @@
     qrcode "~1.5.3"
     toml "~3.0.0"
 
-"@se-2/nextjs@file:C:\\Users\\Dell\\Downloads\\Project-Fronten\\opinion-x\\packages\\nextjs":
+"@se-2/nextjs@file:D:\\hackathons and competitions\\EthIndia2024\\opinion-x\\packages\\nextjs":
   version "0.1.0"
   resolved "file:packages/nextjs"
   dependencies:
@@ -2526,6 +2526,7 @@
     react-copy-to-clipboard "~5.1.0"
     react-dom "~18.3.1"
     react-hot-toast "~2.4.0"
+    react-toastify "^10.0.6"
     usehooks-ts "~3.1.0"
     viem "2.21.32"
     wagmi "2.12.23"
