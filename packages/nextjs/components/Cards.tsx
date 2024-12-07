@@ -26,7 +26,7 @@ const Card: React.FC<CardProps> = ({ title, description, betoption, betoption2 }
 
   return (
     <>
-      <div className="px-5 mx-2 my-6 bg-primary text-slaty-400 ease-in-out transition duration-300 flex flex-col justify-between w-80 h-[18vh] border border-violet-950 rounded-2xl hover:shadow-lg  hover:shadow-secondary hover:scale-105">
+      <div className="px-5 mx-4 my-4 bg-primary text-accent ease-in-out transition duration-300 flex flex-col justify-between w-80 h-[18vh] border border-violet-950 rounded-2xl hover:shadow-xl hover:shadow-secondary hover:scale-105">
         <div className="mx-2 mt-2">
           <h2 className="font-bold text-lg">{title}</h2>
           <p>{description}</p>
