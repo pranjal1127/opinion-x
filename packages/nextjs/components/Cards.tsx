@@ -32,10 +32,16 @@ const Card: React.FC<CardProps> = ({ title, description, betoption, betoption2 }
           <p>{description}</p>
         </div>
         <div className="flex justify-between px-2 py-2">
-          <button onClick={handleButtonClick} className="px-4 py-2 rounded-xl bg-slate-400 hover:bg-slate-600  text-white hover:scale-105">
+          <button
+            onClick={handleButtonClick}
+            className="px-4 py-2 rounded-xl bg-slate-400 hover:bg-slate-600  text-white hover:scale-105"
+          >
             {betoption}
           </button>
-          <button onClick={handleButtonClick} className="px-5 py-2 rounded-xl bg-slate-400 hover:bg-slate-600 text-white hover:scale-105">
+          <button
+            onClick={handleButtonClick}
+            className="px-5 py-2 rounded-xl bg-slate-400 hover:bg-slate-600 text-white hover:scale-105"
+          >
             {betoption2}
           </button>
         </div>

@@ -11,8 +11,6 @@ import Card from "~~/components/Cards";
 import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
-import HeroBanner from "~~/components/HeroBanner";
-
 const Home: NextPage = () => {
   const { address: connectedAddress, chainId } = useAccount();
 
