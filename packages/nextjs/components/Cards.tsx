@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Link from "next/link";
 
 interface CardProps {
   title: string;
@@ -26,33 +27,35 @@ const Card: React.FC<CardProps> = ({ title, description, betoption, betoption2 }
 
   return (
     <>
-      <div className="px-5 mx-4 my-4 bg-primary text-accent ease-in-out transition duration-300 flex flex-col justify-between w-80 h-[18vh] border border-violet-950 rounded-2xl hover:shadow-xl hover:shadow-secondary hover:scale-105">
-        <div className="mx-2 mt-2">
-          <h2 className="font-bold text-lg">{title}</h2>
-          <p>{description}</p>
+      <Link href={`/opinion/${description}`} passHref>
+        <div className="px-5 mx-4 my-4 bg-primary text-accent ease-in-out transition duration-300 flex flex-col justify-between w-80  border border-violet-950 rounded-2xl hover:shadow-xl hover:shadow-secondary hover:scale-105">
+          <div className="mx-2 mt-2">
+            <h2 className="font-bold text-lg">{title}</h2>
+          </div>
+          <div className="flex justify-between px-2 py-2">
+            <button
+              onClick={handleButtonClick}
+              className="px-4 py-2 rounded-xl bg-slate-400 hover:bg-slate-600  text-white hover:scale-105"
+            >
+              {betoption}
+            </button>
+            <button
+              onClick={handleButtonClick}
+              className="px-5 py-2 rounded-xl bg-slate-400 hover:bg-slate-600 text-white hover:scale-105"
+            >
+              {betoption2}
+            </button>
+          </div>
         </div>
-        <div className="flex justify-between px-2 py-2">
-          <button
-            onClick={handleButtonClick}
-            className="px-4 py-2 rounded-xl bg-slate-400 hover:bg-slate-600  text-white hover:scale-105"
-          >
-            {betoption}
-          </button>
-          <button
-            onClick={handleButtonClick}
-            className="px-5 py-2 rounded-xl bg-slate-400 hover:bg-slate-600 text-white hover:scale-105"
-          >
-            {betoption2}
-          </button>
-        </div>
-      </div>
-      {showPopup && (
+      </Link>
+      {/* {showPopup && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-end">
           <div
             className="bg-primary p-5 rounded-t-3xl w-full h-[50vh]"
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
           >
+
             <div className="flex justify-between items-center">
               <h2>{title}</h2>
               <button onClick={() => setShowPopup(false)} className="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
@@ -66,7 +69,7 @@ const Card: React.FC<CardProps> = ({ title, description, betoption, betoption2 }
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };

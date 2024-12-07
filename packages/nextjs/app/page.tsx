@@ -8,9 +8,29 @@ import { Footer } from "~~/components/Footer";
 import PoolCard from "~~/components/PoolCard";
 import { Address } from "~~/components/scaffold-eth";
 import { poolABI } from "~~/contracts/abis/OpinionPool";
+import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
+
+type OpinionPoolCreatedEvent = {
+  args: [string, string, string[]];
+  // Add other properties if needed
+};
+
+const transformQuestions = (eventData: OpinionPoolCreatedEvent[] = []) => {
+  return eventData.map(event => {
+    const { args } = event;
+    const poolAddress = args[0];
+    const question = args[1];
+    const options = args[2];
+    return {
+      poolAddress,
+      question,
+      options,
+    };
+  });
+};
 
 const Home: NextPage = () => {
-  const { address: connectedAddress, chainId } = useAccount();
+  // const { address: connectedAddress, chainId } = useAccount();
   const {
     data: events,
     isLoading: isLoadingEvents,
@@ -30,6 +50,8 @@ const Home: NextPage = () => {
     console.log(events, isLoadingEvents, errorReadingEvents);
   }, [events, isLoadingEvents, errorReadingEvents]);
 
+ 
+
   return (
     <>
       <div className="flex items-center flex-col flex-grow pt-10 ">
@@ -40,9 +62,8 @@ const Home: NextPage = () => {
             <span className="block text-4xl font-bold">OpinionX</span>
           </h1>
         </div>
-        <div>
-          <Card title={"q4rtfd"} description={"q4rtfd"} betoption={"Yes"} betoption2={"No"} />
-          {/* {transformQuestions(events as unknown as OpinionPoolCreatedEvent[]).map((question, index) => (
+        <div className="mb-10">
+          {transformQuestions(events as unknown as OpinionPoolCreatedEvent[])?.map((question, index) => (
             <Card
               title={question.question}
               description={question.poolAddress}
@@ -50,7 +71,7 @@ const Home: NextPage = () => {
               betoption={question.options[0]}
               betoption2={question.options[1]}
             />
-          ))} */}
+          ))}
         </div>
       </div>
       <Footer />
