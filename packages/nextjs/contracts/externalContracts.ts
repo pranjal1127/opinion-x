@@ -1,3 +1,4 @@
+import { factoryABI } from "./abis/OpinionFactory";
 import { poolABI } from "./abis/OpinionPool";
 import { TokenAbi } from "./abis/Token";
 import * as chains from "viem/chains";
@@ -23,6 +24,10 @@ const externalContracts = {
     TOKEN: {
       address: "0x0F0277C11F77EB78aCECB1Bb3ef0ED4afb5CBA2e",
       abi: TokenAbi,
+    },
+    FACTORY: {
+      address: "0xC30667547075F372E1582706964296EBC235E182",
+      abi: factoryABI,
     },
   },
 } as const;
