@@ -16,7 +16,21 @@ import { GenericContractsDeclaration } from "~~/utils/scaffold-eth/contract";
  * } as const;
  */
 const externalContracts = {
-  [chains.sepolia.id]: {
+  [chains.baseSepolia.id]: {
+    POOL_CONTRACT: {
+      address: "0x71cfFa1C994D0A469DEBC8feB37f0391712Be796",
+      abi: poolABI,
+    },
+    TOKEN: {
+      address: "0x0F0277C11F77EB78aCECB1Bb3ef0ED4afb5CBA2e",
+      abi: TokenAbi,
+    },
+    FACTORY: {
+      address: "0x9EaD9b18cC8ad171a36afa565054791b5E147FBB",
+      abi: factoryABI,
+    },
+  },
+  [chains.polygonAmoy.id]: {
     POOL_CONTRACT: {
       address: "0x04Cf4135B65e6B866F3eF9C6A2CD526779720EFA",
       abi: poolABI,
@@ -26,7 +40,7 @@ const externalContracts = {
       abi: TokenAbi,
     },
     FACTORY: {
-      address: "0xC30667547075F372E1582706964296EBC235E182",
+      address: "0x9EaD9b18cC8ad171a36afa565054791b5E147FBB",
       abi: factoryABI,
     },
   },
