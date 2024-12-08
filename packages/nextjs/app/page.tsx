@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import type { NextPage } from "next";
 import Card from "~~/components/Cards";
-import { Footer } from "~~/components/Footer";
 import { useScaffoldEventHistory } from "~~/hooks/scaffold-eth";
 
 type OpinionPoolCreatedEvent = {
@@ -72,7 +71,6 @@ const Home: NextPage = () => {
           ))}
         </div>
       </div>
-      <Footer />
     </>
   );
 };
