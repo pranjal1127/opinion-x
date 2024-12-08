@@ -94,6 +94,8 @@ export const useTradeHook = (contractAddress: `0x${string}`, poolABI: any[]) => 
           if (!tradeReceipt || tradeReceipt.status !== "success") {
             throw new Error("Trade transaction failed");
           }
+          // refresh web page
+          window.location.reload();
 
           return `${type} order completed successfully`;
         } catch (err) {
