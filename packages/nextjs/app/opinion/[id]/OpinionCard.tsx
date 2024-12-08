@@ -184,7 +184,7 @@ const OpinionCard = ({ id }: { id: string }) => {
           <table className="table-auto border-collapse border border-gray-200 w-full mt-4">
             <thead>
               <tr className="bg-gray-100">
-                <th className="border text-gray-800 border-gray-300 px-4 py-2">Index</th>
+                <th className="border text-gray-800 border-gray-300 px-4 py-2">Option</th>
                 <th className="border text-gray-800  te-gray-300 px-4 py-2">Shares</th>
                 <th className="border text-gray-800 border-gray-300 px-4 py-2">Cost</th>
               </tr>
@@ -192,7 +192,7 @@ const OpinionCard = ({ id }: { id: string }) => {
             <tbody>
               {eventHistory.map((event, index) => (
                 <tr key={index} className="text-center">
-                  <td className="border border-gray-300 px-4 py-2">{index}</td>
+                  <td className="border border-gray-300 px-4 py-2">{index == 0 ? "Yes" : "No"}</td>
                   <td className="border border-gray-300 px-4 py-2">{formatEther(event.args[2])}</td>
                   <td className="border border-gray-300 px-4 py-2">{formatEther(event.args[3])}</td>
                 </tr>
