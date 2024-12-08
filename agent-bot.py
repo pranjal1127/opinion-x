@@ -282,7 +282,9 @@ def main_task():
         # Generate questions
         questions = generate_questions_with_context(trending_topics)
 
-        create_opinion_pool(questions)
+        create_opinion_pool_base(questions)
+        # create_opinion_pool_polygon(questions)
+
 
         # Save questions
         if questions:
@@ -294,7 +296,7 @@ def main_task():
         logger.error(f"Unexpected error in main task: {e}")
 
 
-def create_opinion_pool(questions: List[Tuple[str, str]]):
+def create_opinion_pool_base(questions: List[Tuple[str, str]]):
     try:
         for question in questions:
 
@@ -335,6 +337,49 @@ def create_opinion_pool(questions: List[Tuple[str, str]]):
 
     except Exception as e:
         print(f"Error: {e}")
+    
+# def create_opinion_pool_polygon(questions: List[Tuple[str, str]]):
+#     url = "https://sandbox-api.okto.tech/api/v1/rawtransaction/execute"
+#     headers = {
+#         "Authorization": f"Bearer {os.getenv('YOUR_SECRET_TOKEN')}",  # Replace with your actual secret token
+#         "Content-Type": "application/json"
+#     }
+
+#     for question in questions:
+#         try:
+#             logger.info(f"Processing question: {question[1]}")
+            
+
+#             # Prepare transaction payload
+#             transaction_data = contractImpl.encodeABI(
+#                 fn_name="createOpinionPool",
+#                 args=[question[1], ["Yes", "No"]]
+#             )
+
+#             payload = {
+#                 "network_name": "POLYGON_TESTNET_AMOY",  # Adjust as needed
+#                 "transaction": {
+#                     "from": "0xEB0cE02D9d424cfE98B6ee9693120D040A0d5802",  # MPC wallet address
+#                     "to": "0x9EaD9b18cC8ad171a36afa565054791b5E147FBB",  # Target contract address
+#                     "data": transaction_data,  # Encoded ABI data
+#                     "value": "0x0"  # If no ETH/MATIC is being sent
+#                 }
+#             }
+
+#             # Execute transaction via API
+#             response = requests.post(url, json=payload, headers=headers)
+#             response_data = response.json()
+
+#             if response.status_code == 200:
+#                 logger.info(f"Transaction successful: {response_data}")
+#             else:
+#                 logger.error(
+#                     f"Transaction failed: {response.status_code}, {response_data}"
+#                 )
+
+#         except Exception as e:
+#             logger.error(f"Error creating opinion pool for question '{question[1]}': {e}")
+
 
 
 def main():
