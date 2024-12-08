@@ -7,7 +7,6 @@ import { poolABI } from "~~/contracts/abis/OpinionPool";
 
 const OpinionCard = ({ id }: { id: string }) => {
   const [share, setShare] = React.useState("");
-
   const [isBuy, setIsBuy] = React.useState(true);
   const [activeOption, setActiveOption] = React.useState(0);
   const { data: name } = useReadContract({

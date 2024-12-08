@@ -77,7 +77,7 @@ const OpinionCard = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="flex flex-col w-auto bg-primary  mx-auto my-auto rounded-2xl p-5">
+    <div className="flex flex-col w-screen bg-primary  mx-auto my-auto rounded-2xl p-5">
       <h1 className="text-xl mx-auto">Monetize your Opinion</h1>
       {/* <p>
         <span className="font-bold">Opinion Address:</span> {id}
@@ -95,46 +95,48 @@ const OpinionCard = ({ id }: { id: string }) => {
         <span className="font-bold">Options: </span>
       </p> */}
       {options?.map((ele, index) => (
-        <button
-          className="px-5 py-2 mb-2 bg-secondary rounded-lg"
-          key={index}
-          onClick={() => {
-            setActiveOption(index);
-          }}
-        >
-          {ele.name} - $ {formatEther(ele?.shares)}
-        </button>
+        <div key={index} className="">
+          <button
+            className={`px-5 py-2 mb-2 w-full overflow-hidden rounded-lg ${activeOption === index ? "bg-blue-400 border-2 text-white" : "bg-accent"}`}
+            key={index}
+            onClick={() => {
+              setActiveOption(index);
+            }}
+          >
+            {ele.name} - $ {formatEther(ele?.shares)}
+          </button>
+        </div>
       ))}
 
       {activeOption !== null && (
-        <div className="mt-4">
-          <div className="flex justify-between px-3">
-            <div>
+        <div className="my-5">
+          <div className="grid grid-cols-2 px-3 mb-3">
+            <div className={`border-b-2 border-secondary ${isBuy === true ? "border-white text-white" : ""}`}>
               <button
-                className="bg-secondary px-5 py-2 rounded-lg text-white"
+                className=""
                 onClick={async () => {
                   console.log("BUY");
                   setIsBuy(true);
                 }}
               >
-                Buy 💹
+                🟢 Buy
               </button>
             </div>
-            <div>
+            <div className={`border-b-2 border-secondary ${isBuy === false ? "border-white text-white" : ""} `}>
               <button
-                className="bg-secondary px-5 py-2 rounded-lg text-white"
+                className=""
                 onClick={async () => {
                   console.log("SELL");
                   setIsBuy(false);
                 }}
               >
-                Sell 🔻
+                🔴 Sell
               </button>
             </div>
           </div>
           {isBuy !== null && (
-            <div className="mt-4">
-              <label className="block font-bold mb-2" htmlFor="shareInput">
+            <div className="gmt-4">
+              <label className="block font-bold text-sm mb-2" htmlFor="shareInput">
                 Enter number of shares:
               </label>
               <input
@@ -156,7 +158,7 @@ const OpinionCard = ({ id }: { id: string }) => {
                 )}
               </div>
               <button
-                className="bg-secondary px-5 py-2 rounded-lg text-white"
+                className="bg-secondary w-full px-5 py-2 rounded-lg text-white"
                 onClick={async () => {
                   console.log(isBuy ? "BUY" : "SELL");
                   await executeTrade(
@@ -169,12 +171,23 @@ const OpinionCard = ({ id }: { id: string }) => {
                 disabled={isLoading}
               >
                 {isLoading && <span className="loading loading-spinner loading-xs"></span>}
-                {isBuy ? "Buy 💹" : "Sell 🔻"}
+                {isBuy ? "Buy" : "Sell"}
               </button>
+             
             </div>
           )}
         </div>
       )}
+
+<p>Hii</p>
+              {
+                eventHistory?.map((event, index) => (
+                  <div key={index} className="mt-4">
+                    <p>Shares: {formatEther(event.args[2])}</p>
+                    <p>Cost: {formatEther(event.args[3])}</p>
+                  </div> 
+                ))
+              }
     </div>
   );
 };
