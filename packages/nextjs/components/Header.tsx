@@ -60,7 +60,7 @@ export const Header = () => {
       <div className="navbar-end flex justify-between flex-grow mr-4">
         <Link href={"/"} passHref>
           <div className="">
-            <Image src="/opinionX_logo-removebg-preview.png" alt="OpinionX Logo" width={100} height={100} />
+            <h1 className="font-bold text-2xl">OpinionX</h1>
           </div>
         </Link>
         <div className="flex justify-between items-center">

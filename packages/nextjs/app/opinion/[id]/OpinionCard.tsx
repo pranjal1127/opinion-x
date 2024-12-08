@@ -77,7 +77,7 @@ const OpinionCard = ({ id }: { id: string }) => {
   };
 
   return (
-    <div className="flex flex-col w-screen bg-primary  mx-auto my-auto rounded-2xl p-5">
+    <div className="flex flex-col w-auto w-max-[300px] bg-primary  mx-auto my-auto rounded-2xl p-5">
       <h1 className="text-xl mx-auto">Monetize your Opinion</h1>
       {/* <p>
         <span className="font-bold">Opinion Address:</span> {id}
@@ -173,21 +173,36 @@ const OpinionCard = ({ id }: { id: string }) => {
                 {isLoading && <span className="loading loading-spinner loading-xs"></span>}
                 {isBuy ? "Buy" : "Sell"}
               </button>
-             
             </div>
           )}
         </div>
       )}
 
-<p>Hii</p>
-              {
-                eventHistory?.map((event, index) => (
-                  <div key={index} className="mt-4">
-                    <p>Shares: {formatEther(event.args[2])}</p>
-                    <p>Cost: {formatEther(event.args[3])}</p>
-                  </div> 
-                ))
-              }
+      <div>
+        <h2 className="text-xl font-bold mb-2 mt-10">Trade History</h2>
+        {eventHistory && eventHistory.length > 0 ? (
+          <table className="table-auto border-collapse border border-gray-200 w-full mt-4">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="border text-gray-800 border-gray-300 px-4 py-2">Index</th>
+                <th className="border text-gray-800  te-gray-300 px-4 py-2">Shares</th>
+                <th className="border text-gray-800 border-gray-300 px-4 py-2">Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventHistory.map((event, index) => (
+                <tr key={index} className="text-center">
+                  <td className="border border-gray-300 px-4 py-2">{index}</td>
+                  <td className="border border-gray-300 px-4 py-2">{formatEther(event.args[2])}</td>
+                  <td className="border border-gray-300 px-4 py-2">{formatEther(event.args[3])}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        ) : (
+          <p className="mt-4">No events to display</p>
+        )}
+      </div>
     </div>
   );
 };
