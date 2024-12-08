@@ -6,7 +6,7 @@ import { poolABI } from "~~/contracts/abis/OpinionPool";
 import { useEventHistory } from "~~/hooks/scaffold-eth/useEventHistory";
 
 const OpinionCard = ({ id }: { id: string }) => {
-  const { address } = useAccount();
+  const { address, chain } = useAccount();
   const [share, setShare] = React.useState("");
   const [isBuy, setIsBuy] = React.useState(true);
   const [activeOption, setActiveOption] = React.useState<number | null>(null);
@@ -19,7 +19,7 @@ const OpinionCard = ({ id }: { id: string }) => {
     contractAddress: id, // Your contract address
     contractAbi: poolABI, // Your contract's ABI
     eventName: "SharesBought",
-    fromBlock: 7220425n, // Optional starting block
+    fromBlock: chain?.id == 137 ? 65223012n : 7220425n, // Optional starting block
     filters: {
       // Optional filters for the event
       user: address,
