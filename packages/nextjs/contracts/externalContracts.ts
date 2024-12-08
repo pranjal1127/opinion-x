@@ -30,9 +30,9 @@ const externalContracts = {
       abi: factoryABI,
     },
   },
-  [chains.polygonAmoy.id]: {
+  [chains.polygon.id]: {
     POOL_CONTRACT: {
-      address: "0x04Cf4135B65e6B866F3eF9C6A2CD526779720EFA",
+      address: "0x1FBcAfd31924AAd4BA996F4f4dd4aAA6377509CB",
       abi: poolABI,
     },
     TOKEN: {
